@@ -33,7 +33,8 @@ namespace GameStore.Models
         [NumberMin(1, ErrorMessage = "Мінімальна кількість товару - 1")]
         public int Count { get; set; }
 
-        public ProductMainImage MainImage { get; set; }
+        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        public byte[] MainPhoto { get; set; }
 
         public virtual ICollection<ProductImage> ProductImages { get; set; }
     }

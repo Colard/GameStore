@@ -28,6 +28,10 @@ namespace GameStore.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Display(Name = "Логін")]
+        public string Login { get; set; }
+
+        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
