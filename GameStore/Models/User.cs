@@ -41,10 +41,7 @@ namespace GameStore.Models
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
-        public bool IsActived { get; set; }
-
-        public System.Guid ActivationCode { get; set; }
-
+        public virtual ICollection<UserAddress> UserAddresses { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
 }

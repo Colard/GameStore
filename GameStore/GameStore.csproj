@@ -137,6 +137,8 @@
     <Compile Include="Authentication\Models\UserSerializeModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,9 +154,26 @@
     <Compile Include="Migrations\202308170636100_second_initial_migration1.designer.cs">
       <DependentUpon>202308170636100_second_initial_migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308171157501_migration_v3.cs" />
+    <Compile Include="Migrations\202308171157501_migration_v3.designer.cs">
+      <DependentUpon>202308171157501_migration_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308171801587_migration_v4.cs" />
+    <Compile Include="Migrations\202308171801587_migration_v4.designer.cs">
+      <DependentUpon>202308171801587_migration_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308180727277_v4.1.cs" />
+    <Compile Include="Migrations\202308180727277_v4.1.designer.cs">
+      <DependentUpon>202308180727277_v4.1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308181133451_v4.2.cs" />
+    <Compile Include="Migrations\202308181133451_v4.2.designer.cs">
+      <DependentUpon>202308181133451_v4.2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="DAL\GameStoreDBContext.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\OrderStatus.cs" />
@@ -186,6 +205,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Scripts\DragAndDrop.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -223,6 +243,13 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Shop\Details.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -263,6 +290,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308170636100_second_initial_migration1.resx">
       <DependentUpon>202308170636100_second_initial_migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308171157501_migration_v3.resx">
+      <DependentUpon>202308171157501_migration_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308171801587_migration_v4.resx">
+      <DependentUpon>202308171801587_migration_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308180727277_v4.1.resx">
+      <DependentUpon>202308180727277_v4.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308181133451_v4.2.resx">
+      <DependentUpon>202308181133451_v4.2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

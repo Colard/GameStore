@@ -30,10 +30,15 @@ namespace GameStore.Models
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Кількість товару на складі")]
-        [NumberMin(1, ErrorMessage = "Мінімальна кількість товару - 1")]
+        [NumberMin(0, ErrorMessage = "Мінімальна кількість товару - 0")]
         public int Count { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Display(Name = "Категорія товару")]
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
+
         public byte[] MainPhoto { get; set; }
 
         public virtual ICollection<ProductImage> ProductImages { get; set; }

@@ -1,0 +1,135 @@
+﻿@model GameStore.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Product</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <fieldset class="upload_dropZone text-center mb-3 p-4">
+
+        <legend class="visually-hidden">Image uploader</legend>
+
+        <svg class="upload_svg" width="60" height="60" aria-hidden="true">
+            <use href="#icon-imageUpload"></use>
+        </svg>
+
+        <p class="small my-2">Перемістіть фото<br><i>або</i></p>
+
+        <input id="upload_image_background" data-post-name="image_background"
+               data-post-url="https://someplace.com/image/uploads/backgrounds/"
+               class="position-absolute invisible"
+               type="file"
+               multiple accept="image/jpeg, image/png" />
+
+        <label class="btn btn-upload mb-3" for="upload_image_background">Оберіть вручну</label>
+
+    </fieldset>
+
+    <h2>Оберіть фото, що буде відображатись в якості головного: </h2>
+    <fieldset>
+        <div calss="gallery_scroll container">
+            <div class="upload_gallery d-flex justify-content-left mb-0">
+                @{
+                    if (ViewBag.selectedImage == null)
+                    {
+                        ViewBag.selectedImage = "";
+                    }
+
+                    <input class='main_img_container unvisible_checkbox' name='selectedImage' value="@ViewBag.selectedImage">
+
+                    if (ViewBag.ImageFile != null)
+                    {
+                        List<string> arrOfImageFiles = (List<string>)ViewBag.ImageFile;
+                        foreach (string str in arrOfImageFiles)
+                        {
+                            string selectedImgClassString = "";
+                            if (ViewBag.selectedImage != null && str == (string)ViewBag.selectedImage)
+                            {
+                                selectedImgClassString = "selected_img";
+                            }
+                            <div class="gallery_cheked_img mx-1 @selectedImgClassString">
+                                <img class="upload_img" alt="ViewError" src="@str">
+                                <p class='close_span ' onclick="$(this).parent().remove();">&#10060</p>
+                                <input class="unvisible_checkbox" name="imageFile" value="@str">
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Edit" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+    <script src="~/Scripts/DragAndDrop.js"></script>
+}

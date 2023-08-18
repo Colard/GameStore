@@ -22,5 +22,6 @@ namespace GameStore.Models
         public DbSet<User> Users { get; set; }
         public DbSet<UserAddress> UsersAdresses { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace GameStore.Models
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Статус замовлення")]
-        byte[] url { get; set; }
+        public byte[] Url { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Товар")]
