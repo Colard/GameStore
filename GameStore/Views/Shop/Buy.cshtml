@@ -1,0 +1,56 @@
+﻿@model GameStore.Models.Product
+@using GameStore.Controllers.Functions.Data;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper flex-column">
+                <div class="wrapper row">
+                    <div class="preview col-lg-6">
+
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active" id="pic-1">
+                                <img class="" src="@JSImageByteConverter.FromBase64ToImageString(Model.MainPhoto)" alt="..." />
+                            </div>
+                        </div>
+                        <ul class="preview-thumbnail nav nav-tabs px-2">
+                            @{
+                                foreach (GameStore.Models.ProductImage item in Model.ProductImages)
+                                {
+                                    <li class="active">
+                                        <a data-target="#pic-1" data-toggle="tab">
+                                            <img class="detal_info_scroll_item" src="@JSImageByteConverter.FromBase64ToImageString(item.Url)" />
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+
+                    </div>
+                    <div class="details col-lg-6">
+                        <h3 class="text-center product-title">@Model.Name</h3>
+                        <h4 class="price text-center">Відомості</h4>
+                        <p class="product-description">@Model.Title</p>
+                        <div class="wrapper row">
+                            <div class="action col-md-6 text-center">
+                                <button class="add-to-cart btn btn-default" type="button">В корзину</button>
+                            </div>
+                            <h4 class="price col-md-6 text-center m-0 my-auto">Ціна: <span>@Model.Price ₴</span></h4>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <h3 class="product-title mt-3 text-center">Опис </h3>
+                <p class="product-description">@Model.Description</p>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

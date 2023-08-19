@@ -1,0 +1,11 @@
+﻿@media (max-width: 992px) {
+    .pagination-container .pagination > li.PagedList-ellipses {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px)  {
+}

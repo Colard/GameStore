@@ -1,4 +1,9 @@
-﻿@model IEnumerable<GameStore.Models.Product>
+﻿@model PagedList.IPagedList<GameStore.Models.Product>
+@using PagedList.Mvc;
+@using GameStore.Controllers.Functions.Data;
+@using GameStore.Controllers.Functions.HtmlSettings;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -6,65 +11,98 @@
 }
 
 <h2>Index</h2>
+<section class="py-1">
+    @using (Html.BeginForm("Index", "Shop"))
+    {
+        <div class="container">
+            <div class="container-fluid wraped flex-column">
+                <div class="container-fluid">
+                    <h2 class="text-center">Налаштування пошуку:</h2>
+                </div>
+                <div class="wrapper row">
+                    <div class="col-md-8">
+                        <h3 class="text-center">Фільтри:</h3>
+                        <div class="wraped row justify-content-sm-center">
+                            <div class="text-center col-md-6 flex-column">
+                                <p>За назвою:</p> 
+                                <div>@Html.TextBox("Name", ViewBag.NameSearch as string)</div>
+                            </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Count)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MainPhoto)
-        </th>
-        <th></th>
-    </tr>
+                            <div class="text-center col-md-6 flex-column">
+                                <p>За категорією:</p> 
+                                <div>@Html.DropDownList("Category", ViewBag.CategoriesFilter as IEnumerable<SelectListItem>)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-center">Сортування:</h3>
+                        <div class="wraped row justify-content-sm-center">
+                            <div class="text-center col-md-6 flex-column">
+                                <p> Сортувати:</p>
+                                <div>@Html.DropDownList("Sort", ViewBag.SortFilter as IEnumerable<SelectListItem>)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wraped text-center">
+                    <input class="btn btn-outline-dark mt-2" type="submit" value="Знайти" />
+                </div>
+            </div>
+        </div>
+        <input type="checkbox" name="filtering" class="unvisible_checkbox" value="1" checked />
+    }
+</section>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Count)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MainPhoto)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<hr/>
+
+
+@if(Model.Count == 0)
+{
+    <div class="container px-4 px-lg-5 mt-5">
+        <h1 class="text-center">Товари не знайено!</h1>
+    </div>
 }
 
-</table>
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-left">
+            @{
+                foreach (GameStore.Models.Product item in Model)
+                {
+                    <div class="col mb-5" div-href="/Shop/Buy/@item.Id">
+                        <div class="card h-100">
+                            <img class="good_card card-img-top" src="@JSImageByteConverter.FromBase64ToImageString(item.MainPhoto)" alt="...">
+                            <div class="card-body p-2">
+                                <div class="text-center">
+                                    <h6 class="fw-bolder">@item.Name</h6>
+                                    <a class="m-0 undecorited_link">@reduceString(item.Title)</a>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row row-cols-md-2">
+                                <div class="text-center p-0"><a class="btn btn-outline-dark mt-auto" href="/Shop/Index">В корзину</a></div>
+                                <div class="text-center m-0 my-auto"><p class="m-0 ">@item.Price ₴</p></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+@Html.PagedListPager(Model,
+    page => Url.Action("Index", 
+    new { page, name = ViewBag.NameSearch, category = ViewBag.CoosedCategory, Sort = ViewBag.Sort }),
+    PaginationCustomOption.ShowOnlySomePages(5, "Початок", "Кінець", "Попередня", "Наступна"))
+
+@section scripts {
+    <script src="~/Scripts/sizeListener.js"></script>
+    <script src="~/Scripts/start_block_events.js"></script>
+}
+
+@{
+    string reduceString(string str)
+    {
+        return (str.Length > 70) ? str.Substring(0, 67).Trim() + "..." : str;
+    }
+}

@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Policy;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using GameStore.Models;
-using static System.Net.Mime.MediaTypeNames;
+using GameStore.Controllers.Functions.Data;
 
 namespace GameStore.Controllers
 {
@@ -119,8 +111,8 @@ namespace GameStore.Controllers
             SelectList categories = new SelectList(db.Categories.OrderBy(el => el.Name), "Id", "Name"); ;
            
             ViewBag.Categories = categories;
-            ViewBag.SelectedImage = convertFromBase64ToImageString(product.MainPhoto);
-            ViewBag.ImageFile = convertArrOfBase64ToImageStringArr(product.ProductImages.Select(image => image.Url).ToList());
+            ViewBag.SelectedImage = JSImageByteConverter.FromBase64ToImageString(product.MainPhoto);
+            ViewBag.ImageFile = (product.ProductImages.Select(image => image.Url).ToList());
 
             return View(product);
         }
@@ -209,7 +201,7 @@ namespace GameStore.Controllers
 
             byte[] base64bytes = null;
 
-            if (!checkImgAndReturnBase64String(imageUrl, out base64bytes)) return null;
+            if (!JSImageByteConverter.CheckImgStringToBase64(imageUrl, out base64bytes)) return null;
 
             return base64bytes;
         }
@@ -246,54 +238,6 @@ namespace GameStore.Controllers
 
             }
             return imagesList;
-        }
-
-        private bool checkFileFormat(string file, Regex exp)
-        {
-            return exp.IsMatch(file);
-        }
-
-        private bool TryGetFromBase64String(string input, out byte[] output)
-        {
-            output = null;
-            try
-            {
-                output = Convert.FromBase64String(input);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
-        private bool checkImgAndReturnBase64String(string input, out byte[] output)
-        {
-            Regex exp = new Regex(@"^data:image/jpeg;base64,|^data:image/png;base64,");
-            if (checkFileFormat(input, exp))
-            {
-                string base64String = exp.Replace(input, String.Empty);
-                return TryGetFromBase64String(base64String, out output);
-            }
-
-            output = null;
-            return false;
-        }
-
-        private string convertFromBase64ToImageString(byte[] input)
-        {
-            return "data:image/png;base64," +  Convert.ToBase64String(input, 0, input.Length);
-        }
-
-        private IEnumerable<string> convertArrOfBase64ToImageStringArr(IEnumerable<byte[]> input) 
-        { 
-            List<string> output = new List<string> ();
-            foreach (byte[] byteArr in input) 
-            {
-                output.Add(convertFromBase64ToImageString(byteArr));
-            }
-
-            return output;
         }
     }
 }

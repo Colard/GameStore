@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<GameStore.Models.Product>
+@using GameStore.Controllers.Functions.Data;
 
 @{
     ViewBag.Title = "Index";
@@ -9,33 +10,42 @@
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-left">
-            @{ 
-                foreach (GameStore.Models.Product item in Model) {
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Popular Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-left">
+            @{
+                foreach (GameStore.Models.Product item in Model)
+                {
+                    <div class="col mb-5" div-href="/Products/Details/@item.Id">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="good_card img_for_resize card-img-top" src="@JSImageByteConverter.FromBase64ToImageString(item.MainPhoto)" alt="...">
+                            <!-- Product details-->
+                            <div class="card-body p-2">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h6 class="fw-bolder">@item.Name</h6>
+                                    <a class="m-0 undecorited_link">@reduceString(item.Title)</a>
+                                </div>
                             </div>
-                            <!-- Product price-->
-                            $40.00
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row row-cols-md-2">
+                                <div class="text-center p-0"><a class="btn btn-outline-dark mt-auto" href="#">В корзину</a></div>
+                                <div class="text-center m-0 my-auto"><p class="m-0 ">@item.Price ₴</p></div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-                    }
                 }
+            }
         </div>
     </div>
 </section>
+
+@section scripts {
+    <script src="~/Scripts/dynamicImageResizer.js"></script>
+}
+
+@{
+    string reduceString(string str)
+    {
+        return (str.Length > 70) ? str.Substring(0, 67).Trim() + "..." : str;
+    }
+} 
