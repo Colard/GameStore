@@ -143,6 +143,8 @@
     <Compile Include="Authentication\Models\UserSerializeModel.cs" />
     <Content Include="Content\adaptation.css" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\FiltrationModels\JSONMassage.cs" />
     <Compile Include="Controllers\FiltrationModels\ProductFilter.cs" />
     <Compile Include="Controllers\FiltrationModels\OrderTypes.cs" />
     <Compile Include="Controllers\Functions\Data\JSImageByteConverter.cs" />
@@ -195,6 +197,9 @@
     <Compile Include="Models\UserAddress.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\ajax_helpers.js" />
+    <Content Include="Scripts\cart_events.js" />
+    <Content Include="Scripts\massage_view.js" />
     <Compile Include="Validation\AbstractNumberComparison.cs" />
     <Compile Include="Validation\NumberMax.cs" />
     <Compile Include="Validation\NumberMin.cs" />
@@ -228,6 +233,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\dynamic_cart.js" />
     <Content Include="Scripts\sizeListener.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -258,12 +264,13 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Shop\Buy.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Cart\Create.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

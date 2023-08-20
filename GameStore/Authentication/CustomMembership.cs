@@ -45,6 +45,11 @@ namespace GameStore.Authentication
             }
         }
 
+        public static CustomPrincipal getCurrentUser()
+        {
+            return (CustomPrincipal) HttpContext.Current.User;
+        }
+
         public override string GetUserNameByEmail(string email)
         {
             throw new NotImplementedException();

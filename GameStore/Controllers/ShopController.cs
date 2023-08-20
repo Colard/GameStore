@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Web.Services.Description;
 using Newtonsoft.Json.Linq;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 
 namespace GameStore.Controllers
 {
@@ -24,9 +25,17 @@ namespace GameStore.Controllers
         // GET: Shop
         public ActionResult Index(int? page, ProductFilter filter, int filtering = 0 )
         {
+            if (filtering == 1) {
+                return RedirectToAction("Index", new {Sort = filter.Sort, category = filter.Category, name = filter.Name });
+            }
+
             var products = db.Products.Include(p => p.Category);
 
-            filter.FilterProductByText(products);
+            if (!String.IsNullOrEmpty(filter.Name)) 
+            {
+                products = filter.FilterProductByText(products);
+                ViewBag.NameSearch = filter.Name;
+            }
 
             if (filter.Category != null && filter.Category != 0)
             {   

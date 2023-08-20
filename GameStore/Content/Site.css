@@ -107,7 +107,7 @@ textarea {
     border: solid #1b8753 5px;
 }
 
-body .card .good_card {
+body .good_card {
     height: 200px;
     object-fit: contain;
 }
@@ -235,6 +235,14 @@ body .card .good_card {
     color: #fff;
 }
 
+body .no-product-for-cart {
+    background: #57534f
+}
+
+body .no-product-for-cart:hover {
+    background: #57534f
+}
+
 .not-available {
     text-align: center;
     line-height: 2em;
@@ -258,4 +266,23 @@ body .card .good_card {
 
 .pagination-container .pagination {
 
+}
+
+.card.product-not-available {
+    background-color: lightgray;
+    filter: brightness(80%)
+}
+
+.content-blocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(136, 136, 204, 0.5);
+    z-index: 4444;
+}
+
+.error-msg {
+    color: red;
 }

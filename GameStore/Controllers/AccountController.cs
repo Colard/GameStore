@@ -32,6 +32,12 @@ namespace GameStore.Controllers
             return View();
         }
 
+        [CustomAuthorize]
+        public string CheckAuthorize()
+        {
+            return "success";
+        }
+
         [HttpGet]
         public ActionResult Login(string ReturnUrl = "")
         {

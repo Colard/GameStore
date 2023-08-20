@@ -35,7 +35,6 @@ namespace GameStore
                 principal.Roles = serializeModel.RoleName.ToArray<string>();
 
                 HttpContext.Current.User = principal;
-
             }
         }
     }
