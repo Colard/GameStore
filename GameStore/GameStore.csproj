@@ -145,6 +145,10 @@
     <Compile Include="Migrations\202308211229173_v4.8.designer.cs">
       <DependentUpon>202308211229173_v4.8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308211835453_v4.9.cs" />
+    <Compile Include="Migrations\202308211835453_v4.9.designer.cs">
+      <DependentUpon>202308211835453_v4.9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Validation\RangeLengthAttribute.cs" />
     <Content Include="Content\adaptation.css" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -227,12 +231,13 @@
     <Compile Include="Models\UserAddress.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Scripts\ajax_helpers.js" />
-    <Content Include="Scripts\cart_events.js" />
-    <Content Include="Scripts\massage_view.js" />
-    <Content Include="Scripts\order_create_events.js" />
-    <Content Include="Scripts\dynamic_adress_create.js" />
-    <Content Include="Scripts\profile_events.js" />
+    <Content Include="Content\Img\back.jpg" />
+    <Content Include="Scripts\page_scripts\ajax_helpers.js" />
+    <Content Include="Scripts\page_scripts\cart_events.js" />
+    <Content Include="Scripts\page_scripts\massage_view.js" />
+    <Content Include="Scripts\page_scripts\order_create_events.js" />
+    <Content Include="Scripts\page_scripts\dynamic_adress_create.js" />
+    <Content Include="Scripts\page_scripts\profile_events.js" />
     <Compile Include="Validation\AbstractNumberComparison.cs" />
     <Compile Include="Validation\NumberMax.cs" />
     <Compile Include="Validation\NumberMin.cs" />
@@ -255,7 +260,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Scripts\DragAndDrop.js" />
+    <Content Include="Scripts\page_scripts\DragAndDrop.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -266,8 +271,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\dynamic_cart.js" />
-    <Content Include="Scripts\sizeListener.js" />
+    <Content Include="Scripts\page_scripts\dynamic_cart.js" />
+    <Content Include="Scripts\page_scripts\sizeListener.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -278,7 +283,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\start_block_events.js" />
+    <Content Include="Scripts\page_scripts\start_block_events.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -295,15 +300,14 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Shop\Buy.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Cart\Create.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308211229173_v4.8.resx">
       <DependentUpon>202308211229173_v4.8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308211835453_v4.9.resx">
+      <DependentUpon>202308211835453_v4.9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

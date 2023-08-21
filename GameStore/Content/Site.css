@@ -1,7 +1,107 @@
-﻿.body-content {
-    margin-top: 15px;
+﻿body {
+    background-image: linear-gradient(to left, #f0f0f0, #e2e2e2, #d5d5d5, #c7c7c7, #bababa, #bababa, #bababa, #bababa, #c7c7c7, #d5d5d5, #e2e2e2, #f0f0f0);
+}
+
+* {
+    color:black;
+}
+
+body, html {
+    height: 100%
+}
+
+body .page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #F0F0F0;
+}
+
+.body-content {
     padding-left: 15px;
     padding-right: 15px;
+    min-height: 100vh;
+    background-image: linear-gradient(to left, #f0f0f0, #e2e2e2, #d5d5d5, #c7c7c7, #bababa, #bababa, #bababa, #bababa, #c7c7c7, #d5d5d5, #e2e2e2, #f0f0f0);
+}
+
+.home-category-list *{
+    color: black !important;
+}
+
+.background-container {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to left, #f0f0f0, #e2e2e2, #d5d5d5, #c7c7c7, #bababa, #bababa, #bababa, #bababa, #c7c7c7, #d5d5d5, #e2e2e2, #f0f0f0);
+}
+
+footer {
+    min-height: 100px;
+    margin-top: auto;
+    font-weight: 600;
+}
+
+.category.btn {
+    min-width: 150px;
+    margin: 0 10px;
+}
+
+.nav-text * {
+    color: #6c757d;
+    font-weight: 600;
+}
+
+.nav-text a:hover {
+    color: #FFFFFF !important;
+}
+
+.navbar-toggler {
+    background-color: #6c757d !important
+}
+
+button.accordion-button{
+    border: solid 1px black;
+}
+
+button.accordion-button:not(.collapsed) {
+    background-color: #6c757d;
+    outline: none !important;
+}
+
+.black-border {
+    border: 1px solid black !important;
+}
+
+.light-gray-background {
+    background-color:#F0F0F0 !important;
+}
+
+body .accordion-body {
+    border: 1px solid black !important;
+}
+
+.filter-right-border {
+    border-right: 1px solid black;
+}
+
+.pagination-container {
+    text-align: center !important;
+}
+
+.pagination-container .active a {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.pagination-container :not(.active) a{
+    color: black;
+}
+
+.return-url-text {
+    font-size: 20px;
+}
+
+.pagination-container .pagination{
+    border: solid black 1px;
 }
 
 .dl-horizontal dt {
@@ -219,20 +319,8 @@ body .good_card {
     margin-top: 0;
 }
 
-.add-to-cart {
-    background: #ff9f1a;
-    padding: 1.2em 1.5em;
-    border: none;
-    text-transform: UPPERCASE;
-    font-weight: bold;
-    color: #fff;
-    -webkit-transition: background .3s ease;
-    transition: background .3s ease;
-}
-
-.add-to-cart:hover {
-    background: #b36800;
-    color: #fff;
+body .form-container {
+    max-width: 500px !important;
 }
 
 body .no-product-for-cart {

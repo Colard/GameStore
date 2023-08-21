@@ -85,7 +85,7 @@ namespace GameStore.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Profile", "Account");
             }
 
             List<SelectListItem> addresses = db.UsersAdresses

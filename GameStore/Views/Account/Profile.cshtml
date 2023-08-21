@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2 class="text-center py-5 display-3 fw-bold">Профіль</h2>
 @{
     string userFullName = Model.LastName + " " + Model.FirstName + " " + Model.MiddleName;
     <div class="container row m-0 p-0">
         <div class="col-md-4">
             <h3 class="text-center">Дані профілю</h3>
-            <a class="btn btn-outline-dark m-0 p-2 w-100 mb-3" href="/Account/EditUser">Редагувати</a>
+            <a class="btn btn-dark m-0 p-2 w-100 mb-3" href="/Account/EditUser">Редагувати</a>
             <p>Логін: @Model.Login</p>
             <p>П.І.Б.: @userFullName</p>
             <p>E-mail: @Model.Email</p>
@@ -18,13 +19,13 @@
         </div>
         <div class="col-md-8">
             <h3 class="text-center">Адреси користувача</h3>
-            <p class="btn btn-outline-dark m-0 p-2 w-100 mb-3 create-address">Додати нову адресу</p>
+            <p class="btn btn-dark m-0 p-2 w-100 mb-3 create-address">Додати нову адресу</p>
             <div class="row addresses-palce">
                 @foreach (var el in Model.UserAddresses)
                 {
-                    <div class="border mx-2 p-2 rounded address-row" style="min-width: 100px; height: fit-content; width: fit-content; display: inline">
+                    <div class="border mx-2 p-2 light-gray-background black-border rounded address-row" style="min-width: 100px; height: fit-content; width: fit-content; display: inline">
                         <p class="m-0 address-name">@el.Address</p>
-                        <p class="btn btn-outline-danger m-0 p-0 w-100" delete ="@el.Id">Видалити</p>
+                        <p class="btn btn-danger m-0 p-0 w-100" delete ="@el.Id">Видалити</p>
                     </div>
                 }
             </div>
@@ -32,7 +33,7 @@
     </div>
 }
 
-<div class="accordion mt-5" id="orderAcrodion">
+<div class="accordion my-5" id="orderAcrodion">
     <h3 class="text-center mb-3">Історія покупок</h3>
     @{
         int indexOfOrder = 1;
@@ -77,8 +78,8 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/ajax_helpers.js"></script>
-    <script src="~/Scripts/massage_view.js"></script>
-    <script src="~/Scripts/dynamic_adress_create.js"></script>
-    <script src="~/Scripts/profile_events.js"></script>
+    <script src="~/Scripts/page_scripts/ajax_helpers.js"></script>
+    <script src="~/Scripts/page_scripts/massage_view.js"></script>
+    <script src="~/Scripts/page_scripts/dynamic_adress_create.js"></script>
+    <script src="~/Scripts/page_scripts/profile_events.js"></script>
 }

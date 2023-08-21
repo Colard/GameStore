@@ -3,42 +3,67 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - GameShop</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/adaptation.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Товари", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("LogOut", "LogOut", "Account", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Registration", "Registration", "Account", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Profile", "Profile", "Account", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Корзина", "Index", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
+    <div class="page-wrapper">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-md bg-dark nav-text">
+            <div class="container my-0">
+                @Html.ActionLink("GameStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-around">
+                        <li>@Html.ActionLink("На головну", "Index", "Home", new { area = "" }, new { @class = "nav-link w-100" })</li>
+                        <li>@Html.ActionLink("Товари", "Index", "Shop", new { area = "" }, new { @class = "nav-link w-100" })</li>
+                        <li>@Html.ActionLink("Профіль", "Profile", "Account", new { area = "" }, new { @class = "nav-link w-100" })</li>
+                        <li>@Html.ActionLink("Корзина", "Index", "Cart", new { area = "" }, new { @class = "nav-link w-100" })</li>
+                    </ul>
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <ul class="navbar-nav navbar-right">
+                                <li>
+                                    @Html.ActionLink(GameStore.Authentication.CustomMembership.getCurrentUser().Login, "Profile", "Account", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+                                <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Вийти</a></li>
+                            </ul>
+                        }
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Увійти", "Login", "Account", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Реєстрація", "Registration", "Account", new { area = "" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    }
+
+                </div>
+            </div>
+        </nav>
+        <div class="body-content container my-0t">
+            <div class="background-container">
+                @RenderBody()
             </div>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="bg-dark">
+            <ul class="nav justify-content-center border-bottom pb-3 my-2 nav-text">
+                <li class="nav-item">@Html.ActionLink("На головну", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Товари", "Index", "Shop", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Корзина", "Index", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Профіль", "Profile", "Account", new { area = "" }, new { @class = "nav-link" })</li>
+            </ul>
+            <p class="text-center text-muted">© 2023 GameStore</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

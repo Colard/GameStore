@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using GameStore.Validations;
 using System.Collections.Generic;
+using GameStore.Validation;
 
 namespace GameStore.Models
 {
@@ -17,10 +18,13 @@ namespace GameStore.Models
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Короткі відомості")]
+        [DataType(DataType.MultilineText)]
+        [RangeLength(200, MinimumLength = 6)]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Опис")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]

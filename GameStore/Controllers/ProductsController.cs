@@ -20,20 +20,6 @@ namespace GameStore.Controllers
             return View(db.Products.ToList());
         }
 
-        // GET: Products/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
 
         // GET: Products/Create
         public ActionResult Create()
@@ -109,10 +95,10 @@ namespace GameStore.Controllers
 
             product.ProductImages = db.ProductImages.Where(el => el.ProductId == product.Id).ToList();
             SelectList categories = new SelectList(db.Categories.OrderBy(el => el.Name), "Id", "Name"); ;
-           
+
             ViewBag.Categories = categories;
             ViewBag.SelectedImage = JSImageByteConverter.FromBase64ToImageString(product.MainPhoto);
-            ViewBag.ImageFile = (product.ProductImages.Select(image => image.Url).ToList());
+            ViewBag.ImageFile = (JSImageByteConverter.ArrOfBase64ToImageString(product.ProductImages.Select(image => image.Url).ToList()));
 
             return View(product);
         }

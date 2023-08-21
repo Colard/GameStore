@@ -32,6 +32,8 @@ namespace GameStore
                 var serializeModel = JsonConvert.DeserializeObject<UserSerializeModel>(authTicket.UserData);
                 CustomPrincipal principal = new CustomPrincipal(authTicket.Name);
                 principal.UserId = serializeModel.Id;
+                principal.Login = serializeModel.Login;
+                principal.Email = serializeModel.Email;
                 principal.Roles = serializeModel.RoleName.ToArray<string>();
 
                 HttpContext.Current.User = principal;

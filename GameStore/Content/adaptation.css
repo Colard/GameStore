@@ -5,6 +5,9 @@
 }
 
 @media (max-width: 768px) {
+    .filter-right-border {
+        border: none;
+    }
 }
 
 @media (max-width: 576px)  {

@@ -1,5 +1,10 @@
 ﻿(function () {
 
+    const chagePrice = function (decrSum) {
+        let span = $("#sumSpan");
+        span.text((+(span.text().replace(",", ".")) - decrSum).toFixed(2));
+    }
+
     const deteleFromCart = function (productId, JQview) {
         $.ajax({
             url: '/Cart/Delete/', 
@@ -7,6 +12,7 @@
             type: 'POST',
         }).done(function (data) {
             showMsg(data.Massage);
+            chagePrice(Number.parseFloat(JQview.find(".product_price").text().replace(",", "."), 10));
             JQview.remove();
         }).fail(function (data) {
             if (data.Massage) showMsg(data.Massage);

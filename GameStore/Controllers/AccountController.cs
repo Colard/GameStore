@@ -164,7 +164,7 @@ namespace GameStore.Controllers
             user.Login = userData.Login;
             user.Email = userData.Email;
             user.Phone = userData.Phone;
-            user.Password = user.Phone;
+            user.Password = user.Password;
             user.ConfirmPassword = user.Password;
 
             db.Entry(user).State = EntityState.Modified;
@@ -293,6 +293,8 @@ namespace GameStore.Controllers
                 UserSerializeModel userModel = new UserSerializeModel()
                 {
                     Id = user.UserId,
+                    Login = user.Login,
+                    Email = user.Email,
                     RoleName = user.Roles.Select(r => r.RoleName).ToList()
                 };
 

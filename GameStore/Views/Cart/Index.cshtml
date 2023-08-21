@@ -3,13 +3,13 @@
 @using GameStore.Controllers.Functions.HtmlSettings;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Корзина";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="text-center py-5 display-3 fw-bold">Корзина</h2>
 
-<section class="py-3">
+<section class="pb-3 ">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-left">
             @{
@@ -37,7 +37,7 @@
                                 <div class="text-center p-0">
                                     <p class="m-0 btn btn-outline-dark mt-auto" href="" delete="@item.Product.Id">Видалити</p>
                                 </div>
-                                <div class="text-center m-0 my-auto"><p class="m-0 ">@productPrice ₴</p></div>
+                                <div class="text-center m-0 my-auto"><p class="m-0 product_price">@productPrice ₴</p></div>
                             </div>
                         </div>
                     </div>
@@ -53,14 +53,14 @@
 @if (Model.Count() != 0)
 {
     <hr />
-    <div class="conteiner flex-column text-center">
-        <h2>Сума до сплати: @sum грн.</h2>
-        <a class="btn btn-outline-dark fw-bold p-3" href="Orders/Create">Оформити замовлення</a>
+    <div class="conteiner flex-column text-center pb-4">
+        <h2>Сума до сплати: <span id="sumSpan">@sum</span> грн.</h2>
+        <a class="btn btn-outline-dark fw-bold p-3" href="/Orders/Create">Оформити замовлення</a>
         <h6>(Товари, яких не вистачає, не будуть доадні до замовлення)</h6>
     </div>
 }
 @section scripts {
-    <script src="~/Scripts/ajax_helpers.js"></script>
-    <script src="~/Scripts/massage_view.js"></script>
-    <script src="~/Scripts/cart_events.js"></script>
+    <script src="~/Scripts/page_scripts/ajax_helpers.js"></script>
+    <script src="~/Scripts/page_scripts/massage_view.js"></script>
+    <script src="~/Scripts/page_scripts/cart_events.js"></script>
 }

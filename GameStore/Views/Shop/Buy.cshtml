@@ -1,27 +1,21 @@
 ﻿@model GameStore.Models.Product
 @using GameStore.Controllers.Functions.Data;
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Придбати";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
-    <p>
+    <div class="row my-4">
         @{
             string url = HttpContext.Current.Request.UrlReferrer.LocalPath;
             System.Diagnostics.Debug.WriteLine(url);
-            if (url != "/Shop/Index" && url != "/Shop")
-            {
-                <a class="btn btn-default" href="/Shop/Index">Повернутись до товарів</a>
-            }
-            else
-            {
-                <a class="btn btn-default" href="@HttpContext.Current.Request.UrlReferrer.PathAndQuery">Повернутись до товарів</a>
-            }
-        }
+            string newUrl = (url != "/Shop/Index" && url != "/Shop") ? "/Shop/Index" : @HttpContext.Current.Request.UrlReferrer.PathAndQuery;
+            <a class="btn btn-dark p-3 return-url-text" href="@newUrl">Повернутись до товарів</a>
 
-    </p>
-    <div class="card">
+        }
+    </div>
+    <div class="card mb-4">
         <div class="container-fliud">
             <div class="wrapper flex-column">
                 <div class="wrapper row">
@@ -48,35 +42,36 @@
                     </div>
                     <div class="details col-lg-6">
                         <h3 class="good-name text-center product-title">@Model.Name</h3>
-                        <h4 class="price text-center">Кількість товару на складі: @Model.Count</h4>
+                        <p class="price text-center py-3 h5 fw-normal">Кількість товару на складі:<b> @Model.Count</b></p>
+                        <hr />
                         <h4 class="price text-center">Відомості</h4>
                         <p class="product-description">@Model.Title</p>
                         <div class="wrapper row">
                             <div class="action col-md-6 text-center">
                                 @if (Model.Count != 0)
                                 {
-                                    <button class="add-to-cart btn btn-default" type="button" product="@Model.Id">В корзину</button>
+                                    <button class="btn btn-dark py-3 px-5" type="button" product="@Model.Id">В корзину</button>
                                 }
                                 else
                                 {
-                                    <button class="add-to-cart no-product-for-cart btn btn-default" type="button">Відсутній</button>
+                                    <button class="btn btn-dark py-3 px-5 no-product-for-cart btn" type="button">Відсутній</button>
                                 }
 
                             </div>
-                            <h4 class="price col-md-6 text-center m-0 my-auto">Ціна: <span>@Model.Price ₴</span></h4>
+                            <h4 class="price col-md-6 text-center m-0 my-auto">Ціна: @Model.Price ₴</h4>
                         </div>
                     </div>
                 </div>
                 <hr />
                 <h3 class="product-title mt-3 text-center">Опис </h3>
-                <p class="product-description">@Model.Description</p>
+                <h5 class="product-description px-5 py-3 fw-normal" style="text-align:justify">@Model.Description</h5>
             </div>
         </div>
     </div>
 </div>
 
 @section scripts {
-    <script src="~/Scripts/ajax_helpers.js"></script>
-    <script src="~/Scripts/massage_view.js"></script>
-    <script src="~/Scripts/dynamic_cart.js"></script>
+    <script src="~/Scripts/page_scripts/ajax_helpers.js"></script>
+    <script src="~/Scripts/page_scripts/massage_view.js"></script>
+    <script src="~/Scripts/page_scripts/dynamic_cart.js"></script>
 }

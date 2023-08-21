@@ -1,52 +1,50 @@
 ﻿@model GameStore.Models.Order
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Замовлення";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2 class="text-center py-5 display-3 fw-bold">Замовлення</h2>
 
-<div class="container wrapper row">
-    <div class="col-md-6">
-        @using (Html.BeginForm())
+<div class="container wrapper row m-0">
+    <div class="col-md-6 black-border light-gray-background p-4 row d-flex justify-content-center">
+        @using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { @class = "form-container" }))
         {
             @Html.AntiForgeryToken()
-            <div class="form-horizontal">
-                <h4>Order</h4>
+            <div class="form-horizontal text-center">
+                <h4>Замовлення</h4>
                 <hr />
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
+                <div class="form-group mt-3">
+                    @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-12 row d-flex justify-content-center m-0">
                         @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
+                <div class="form-group mt-3">
+                    @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-12 row d-flex justify-content-center m-0">
                         @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
+                <div class="form-group mt-3">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-12 row d-flex justify-content-center m-0">
                         @Html.DropDownList("Address", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 row d-flex justify-content-center m-0">
                         <p class="btn btn-outline-dark create-address">Додати адресу</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
+                <div class="form-group row d-flex justify-content-center m-0 mt-3">
+                    <input type="submit" value="Замовити" class="btn btn-dark" />
                 </div>
             </div>
         }
@@ -56,7 +54,7 @@
         <ul>
             @{
                 List<GameStore.Models.Cart> cartList = (List<GameStore.Models.Cart>)ViewBag.Carts;
-                double sum = Math.Round(cartList.Sum(el => el.Product.Price * el.Count));
+                double sum = Math.Round(cartList.Sum(el => el.Product.Price * el.Count), 2);
                 foreach (GameStore.Models.Cart el in cartList)
                 {
                     double elementPrice = Math.Round(el.Product.Price * el.Count, 2);
@@ -68,17 +66,15 @@
                 }
             }
         </ul>
-        <h3>До сплати: @sum грн.</h3>
+        <h3 class="text-center">До сплати: @sum грн.</h3>
     </div>
 </div>
-
-<div>
-    @Html.ActionLink("Повернутися", "Index", "Cart")
+<div class="row my-4">
+    <a class="btn btn-dark p-3 return-url-text" href="/Cart/Index">Повернутись до корзини</a>
 </div>
-
 @section scripts {
-    <script src="~/Scripts/ajax_helpers.js"></script>
-    <script src="~/Scripts/massage_view.js"></script>
-    <script src="~/Scripts/dynamic_adress_create.js"></script>
-    <script src="~/Scripts/order_create_events.js"></script>
+    <script src="~/Scripts/page_scripts/ajax_helpers.js"></script>
+    <script src="~/Scripts/page_scripts/massage_view.js"></script>
+    <script src="~/Scripts/page_scripts/dynamic_adress_create.js"></script>
+    <script src="~/Scripts/page_scripts/order_create_events.js"></script>
 }

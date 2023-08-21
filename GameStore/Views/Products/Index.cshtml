@@ -1,51 +1,53 @@
 ﻿@model IEnumerable<GameStore.Models.Product>
-@using GameStore.Controllers.Functions.Data;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Продукція";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-left">
-            @{
-                foreach (GameStore.Models.Product item in Model)
-                {
-                    <div class="col mb-5" div-href="/Products/Details/@item.Id">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="good_card img_for_resize card-img-top" src="@JSImageByteConverter.FromBase64ToImageString(item.MainPhoto)" alt="...">
-                            <!-- Product details-->
-                            <div class="card-body p-2">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h6 class="fw-bolder">@item.Name</h6>
-                                    <a class="m-0 undecorited_link">@reduceString(item.Title)</a>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row row-cols-md-2">
-                                <div class="text-center p-0"><a class="btn btn-outline-dark mt-auto" href="#">В корзину</a></div>
-                                <div class="text-center m-0 my-auto"><p class="m-0 ">@item.Price ₴</p></div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-    </div>
-</section>
+<h2 class="text-center py-5 display-3 fw-bold">Продукція</h2>
+<div class="row my-4">
+    <a class="btn btn-dark p-3 return-url-text" href="/Products/Create">Додати продукт</a>
+</div>
 
-@section scripts {
-    <script src="~/Scripts/dynamicImageResizer.js"></script>
-}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+        <th></th>
+    </tr>
 
-@{
-    string reduceString(string str)
+    @foreach (var item in Model)
     {
-        return (str.Length > 70) ? str.Substring(0, 67).Trim() + "..." : str;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+            </td>
+        </tr>
     }
-} 
+
+</table>
