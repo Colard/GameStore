@@ -286,3 +286,13 @@ body .no-product-for-cart:hover {
 .error-msg {
     color: red;
 }
+
+body ul.tag-ul {
+    padding-left: 0;
+    display: inline;
+    list-style-type: none;
+}
+
+body li.tag-li {
+    display: inline;
+}

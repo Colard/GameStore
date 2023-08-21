@@ -1,6 +1,9 @@
 ﻿(function () {
     const addOption = function (id, address) {
-        $("#Addresses").append($("<option value='" + id + "'>" + address + "</option>"))
+        let select = $("#Address");
+        select.append($("<option value='" + address + "'>" + address + "</option>"))
+        select.get()[0].value = address;
+
     }
     
     $(".create-address").on("click", function () {

@@ -10,6 +10,9 @@ using GameStore.Authentication.Models;
 using GameStore.Authentication.Attributes;
 using System.Data.Entity;
 using GameStore.Controllers.FiltrationModels;
+using System.Dynamic;
+using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace GameStore.Controllers
 {
@@ -28,11 +31,18 @@ namespace GameStore.Controllers
         [CustomAuthorize]
         public ActionResult Profile()
         {
-            var orders = db.Orders.Include(order => order.OrderProducts
-                    .Select(orderProduct => orderProduct.Product))
-                .Include(order => order.User);
 
-            return View(orders.ToList());
+            int userId = CustomMembership.getCurrentUser().UserId;
+
+            User user = db.Users
+                .Include(el => el.UserAddresses)
+                .Include(el => el.Orders
+                    .Select(order => order.OrderProducts
+                        .Select(orderProduct => orderProduct.Product)))
+                .FirstOrDefault(el => el.Id == userId);
+
+            user.UserAddresses = user.UserAddresses.OrderBy(el => el.Address).ToList();
+            return View(user);
         }
 
         [CustomAuthorize]
@@ -68,6 +78,108 @@ namespace GameStore.Controllers
             msg.Id = userAddress.Id;
             return Json(msg);
         }
+
+        [HttpPost]
+        [CustomAuthorize]
+        public JsonResult DeleteAdress(int? id)
+        {
+            JSONMassage msg = new JSONMassage();
+            if (id == null)
+            {
+                msg.ResponseType = "error";
+                msg.Massage = "Помилка обробки даних";
+                return Json(msg);
+            }
+
+            int userId = CustomMembership.getCurrentUser().UserId;
+            UserAddress address = db.UsersAdresses.SingleOrDefault(p => p.Id == id && p.UserId == userId);
+
+            if (address == null)
+            {
+                msg.ResponseType = "error";
+                msg.Massage = "Помилка обробки даних";
+                return Json(msg);
+            }
+
+            msg.ResponseType = "success";
+            msg.Massage = "Адресу успішно видалено!";
+
+            db.UsersAdresses.Remove(address);
+            db.SaveChanges();
+            return Json(msg);
+        }
+
+        [HttpGet]
+        [CustomAuthorize]
+        public ActionResult EditUser()
+        {
+            var curUser = CustomMembership.getCurrentUser().UserId;
+            User user = db.Users.Find(curUser);
+
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [CustomAuthorize]
+        public ActionResult EditUser(User userData)
+        {
+            ModelState["Password"].Errors.Clear();
+            ModelState["ConfirmPassword"].Errors.Clear();
+
+            IQueryable<User> problemedUsers = db.Users
+                .Where(currentUser =>
+                    currentUser.Login == userData.Login ||
+                    currentUser.Email == userData.Email
+                    );
+
+            var curUserId = CustomMembership.getCurrentUser().UserId;
+            User user = db.Users.Find(curUserId);
+
+            if (problemedUsers.Any(
+                currentUser => currentUser.Login == userData.Login &&
+                currentUser.Login != user.Login))
+            {
+                ModelState.AddModelError("Login", "Користувач з таким логіном вже існує!");
+            };
+
+            if (problemedUsers.Any(
+                currentUser => currentUser.Email == userData.Email
+                && currentUser.Email != user.Email))
+            {
+                ModelState.AddModelError("Email", "Користувач з такою поштою вже існує!");
+            };
+
+            if (!ModelState.IsValid) {
+                return View(userData);
+            }
+
+            user.FirstName = userData.FirstName;
+            user.LastName = userData.LastName;
+            user.MiddleName = userData.MiddleName;
+            user.Login = userData.Login;
+            user.Email = userData.Email;
+            user.Phone = userData.Phone;
+            user.Password = user.Phone;
+            user.ConfirmPassword = user.Password;
+
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+
+            LoginView loginView = new LoginView() {
+                Login = user.Login,
+                Password = user.Password,
+            };
+
+            verifyUser(loginView);
+
+            return RedirectToAction("Profile"); ;
+        }
+
 
         [HttpGet]
         public ActionResult Login(string ReturnUrl = "")
@@ -129,11 +241,9 @@ namespace GameStore.Controllers
                 return View(user);
             }
 
-
             db.Users.Add(user);
             db.SaveChanges();
             
-
             LoginView loginView = new LoginView() {
                 Login = user.Login,
                 Password = user.Password,

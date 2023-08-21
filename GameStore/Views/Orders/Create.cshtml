@@ -1,0 +1,84 @@
+﻿@model GameStore.Models.Order
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<div class="container wrapper row">
+    <div class="col-md-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>Order</h4>
+                <hr />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("Address", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-12">
+                        <p class="btn btn-outline-dark create-address">Додати адресу</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-6 flex-column">
+        <ul>
+            @{
+                List<GameStore.Models.Cart> cartList = (List<GameStore.Models.Cart>)ViewBag.Carts;
+                double sum = Math.Round(cartList.Sum(el => el.Product.Price * el.Count));
+                foreach (GameStore.Models.Cart el in cartList)
+                {
+                    double elementPrice = Math.Round(el.Product.Price * el.Count, 2);
+                    <li class="flex-column">
+                        <h5>@el.Product.Name</h5>
+                        <div class="row"><h6 class="col-md-6">@el.Count шт.</h6><h6 class="col-md-6">@elementPrice грн.</h6></div>
+                        <hr />
+                    </li>
+                }
+            }
+        </ul>
+        <h3>До сплати: @sum грн.</h3>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Повернутися", "Index", "Cart")
+</div>
+
+@section scripts {
+    <script src="~/Scripts/ajax_helpers.js"></script>
+    <script src="~/Scripts/massage_view.js"></script>
+    <script src="~/Scripts/dynamic_adress_create.js"></script>
+    <script src="~/Scripts/order_create_events.js"></script>
+}

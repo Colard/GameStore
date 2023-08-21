@@ -16,20 +16,6 @@ namespace GameStore.Controllers
     {
         private GameStoreDBContext db = new GameStoreDBContext();
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
         public ActionResult Create()
         {
             int userId = CustomMembership.getCurrentUser().UserId;

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Collections.Generic;
+using GameStore.Validation;
 
 namespace GameStore.Models
 {
@@ -33,9 +34,17 @@ namespace GameStore.Models
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [RangeLength(30, MinimumLength = 6)]
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        
+        [NotMapped]
+        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Display(Name = "Повторіть пароль")]
+        [Compare("Password", ErrorMessage = "Паролі не співпадають!")]
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "Номер телефону")]
@@ -43,6 +52,7 @@ namespace GameStore.Models
         public string Phone { get; set; }
 
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
+        public virtual ICollection<Order> Orders { get; set; } 
         public virtual ICollection<Role> Roles { get; set; }
     }
 }

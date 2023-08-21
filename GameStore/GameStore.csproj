@@ -141,6 +141,11 @@
     <Compile Include="Authentication\CustomRole.cs" />
     <Compile Include="Authentication\Models\LoginView.cs" />
     <Compile Include="Authentication\Models\UserSerializeModel.cs" />
+    <Compile Include="Migrations\202308211229173_v4.8.cs" />
+    <Compile Include="Migrations\202308211229173_v4.8.designer.cs">
+      <DependentUpon>202308211229173_v4.8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\RangeLengthAttribute.cs" />
     <Content Include="Content\adaptation.css" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -197,6 +202,18 @@
     <Compile Include="Migrations\202308201730358_v4.4.designer.cs">
       <DependentUpon>202308201730358_v4.4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308210810033_v4.5.cs" />
+    <Compile Include="Migrations\202308210810033_v4.5.designer.cs">
+      <DependentUpon>202308210810033_v4.5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308210843481_v4.6.cs" />
+    <Compile Include="Migrations\202308210843481_v4.6.designer.cs">
+      <DependentUpon>202308210843481_v4.6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308210846282_v4.7.cs" />
+    <Compile Include="Migrations\202308210846282_v4.7.designer.cs">
+      <DependentUpon>202308210846282_v4.7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="DAL\GameStoreDBContext.cs" />
@@ -215,6 +232,7 @@
     <Content Include="Scripts\massage_view.js" />
     <Content Include="Scripts\order_create_events.js" />
     <Content Include="Scripts\dynamic_adress_create.js" />
+    <Content Include="Scripts\profile_events.js" />
     <Compile Include="Validation\AbstractNumberComparison.cs" />
     <Compile Include="Validation\NumberMax.cs" />
     <Compile Include="Validation\NumberMin.cs" />
@@ -272,8 +290,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
@@ -286,6 +302,8 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Cart\Create.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,6 +365,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308201730358_v4.4.resx">
       <DependentUpon>202308201730358_v4.4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308210810033_v4.5.resx">
+      <DependentUpon>202308210810033_v4.5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308210843481_v4.6.resx">
+      <DependentUpon>202308210843481_v4.6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308210846282_v4.7.resx">
+      <DependentUpon>202308210846282_v4.7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308211229173_v4.8.resx">
+      <DependentUpon>202308211229173_v4.8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

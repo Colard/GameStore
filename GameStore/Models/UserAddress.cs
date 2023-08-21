@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using GameStore.Validation;
 
 namespace GameStore.Models
 {
@@ -12,6 +13,7 @@ namespace GameStore.Models
         [Required(ErrorMessage = "Заповніть адресу!")]
         [Display(Name = "Адреса")]
         [MaxLength(40, ErrorMessage = "Максимальна довжина адреси 40 символів")]
+        [RangeLength(40, MinimumLength = 6)]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Заповніть поштовий індекс!")]

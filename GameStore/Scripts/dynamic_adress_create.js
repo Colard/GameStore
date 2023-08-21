@@ -57,7 +57,7 @@ const addAddress = function (addressAdder, callback) {
         }
 
         if (response.ResponseType == "error") {
-            showErrorMsg(data.Massage, data.Massage)
+            showErrorMsg(addressAdder, data.Massage)
         }
     })
 
