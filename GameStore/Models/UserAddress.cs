@@ -9,13 +9,14 @@ namespace GameStore.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Required(ErrorMessage = "Заповніть адресу!")]
         [Display(Name = "Адреса")]
+        [MaxLength(40, ErrorMessage = "Максимальна довжина адреси 40 символів")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Required(ErrorMessage = "Заповніть поштовий індекс!")]
         [Display(Name = "Поштовий індекс")]
-        [RegularExpression(@"^[0-9]{5}$")]
+        [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "Не коректний індекс!")]
         public string PostCode { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]

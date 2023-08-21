@@ -67,7 +67,6 @@
             let response = data;
 
             if (response.ResponseType == "success") {
-                console.log(data.Massage)
                 showMsg(data.Massage);
                 buyPanel.remove();
             }

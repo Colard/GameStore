@@ -2,23 +2,22 @@
 using GameStore.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using GameStore.Authentication.Models;
 using GameStore.Authentication.Attributes;
-using System.Diagnostics;
-using System.Net.Sockets;
+using System.Data.Entity;
+using GameStore.Controllers.FiltrationModels;
 
 namespace GameStore.Controllers
 {
 
     public class AccountController : Controller
     {
+        GameStoreDBContext db = new GameStoreDBContext();
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -29,13 +28,45 @@ namespace GameStore.Controllers
         [CustomAuthorize]
         public ActionResult Profile()
         {
-            return View();
+            var orders = db.Orders.Include(order => order.OrderProducts
+                    .Select(orderProduct => orderProduct.Product))
+                .Include(order => order.User);
+
+            return View(orders.ToList());
         }
 
         [CustomAuthorize]
         public string CheckAuthorize()
         {
             return "success";
+        }
+
+        [HttpPost]
+        [CustomAuthorize]
+        public JsonResult CreateAdress(UserAddress userAddress)
+        {
+            AddressJSONMassage  msg = new AddressJSONMassage();
+            if (!ModelState.IsValidField("Address"))
+            {
+                msg.ResponseType = "error";
+                msg.Massage = ModelState["Address"].Errors.First()?.ErrorMessage;
+                return Json(msg);
+            }
+            if (!ModelState.IsValidField("PostCode"))
+            {
+                msg.ResponseType = "error";
+                msg.Massage = ModelState["PostCode"].Errors.First()?.ErrorMessage;
+                return Json(msg);
+            }
+
+            userAddress.UserId = CustomMembership.getCurrentUser().UserId;
+            db.UsersAdresses.Add(userAddress);
+            db.SaveChanges();
+
+            msg.ResponseType = "success";
+            msg.Massage = userAddress.Address;
+            msg.Id = userAddress.Id;
+            return Json(msg);
         }
 
         [HttpGet]
@@ -75,35 +106,33 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Registration(User user, string ReturnUrl = "")
         {
-            using (GameStoreDBContext dbContext = new GameStoreDBContext())
+
+            IQueryable<User> problemedUsers = db.Users
+                .Where(currentUser =>
+                    currentUser.Login == user.Login ||
+                    currentUser.Email == user.Email
+                    );
+
+            if (problemedUsers.Any(currentUser => currentUser.Login == user.Login))
             {
-                IQueryable<User> problemedUsers = dbContext.Users
-                    .Where(currentUser =>
-                        currentUser.Login == user.Login ||
-                        currentUser.Email == user.Email
-                        );
+                ModelState.AddModelError("Login", "Користувач з таким логіном вже існує!");
+            };
 
-                if (problemedUsers.Any(currentUser => currentUser.Login == user.Login))
-                {
-                    ModelState.AddModelError("Login", "Користувач з таким логіном вже існує!");
-                };
-
-                if (problemedUsers.Any(currentUser => currentUser.Email == user.Email))
-                {
-                    ModelState.AddModelError("Email", "Користувач з такою поштою вже існує!");
-                };
-            }
+            if (problemedUsers.Any(currentUser => currentUser.Email == user.Email))
+            {
+                ModelState.AddModelError("Email", "Користувач з такою поштою вже існує!");
+            };
+            
 
             if (!ModelState.IsValid) {
                 ViewBag.ReturnUrl = ReturnUrl;
                 return View(user);
-            } 
-
-            using (GameStoreDBContext dbContext = new GameStoreDBContext())
-            {
-                dbContext.Users.Add(user);
-                dbContext.SaveChanges();
             }
+
+
+            db.Users.Add(user);
+            db.SaveChanges();
+            
 
             LoginView loginView = new LoginView() {
                 Login = user.Login,

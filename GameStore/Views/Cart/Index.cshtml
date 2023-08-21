@@ -13,6 +13,10 @@
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-left">
             @{
+                if (Model.Count() == 0)
+                {
+                    <h1>Корзина пуста</h1>
+                }
                 string off = "product-not-available";
                 foreach (GameStore.Models.Cart item in Model)
                 {
@@ -43,21 +47,20 @@
     </div>
 </section>
 
-<hr />
-
 @{
     double sum = Math.Round(Model.Sum(el => el.Product.Price * el.Count), 2);
- }
-
-<div class="conteiner flex-column text-center">
+}
+@if (Model.Count() != 0)
+{
+    <hr />
+    <div class="conteiner flex-column text-center">
         <h2>Сума до сплати: @sum грн.</h2>
-        <a class="btn btn-outline-dark fw-bold p-3">Оформити замовлення</a>
+        <a class="btn btn-outline-dark fw-bold p-3" href="Orders/Create">Оформити замовлення</a>
         <h6>(Товари, яких не вистачає, не будуть доадні до замовлення)</h6>
-</div>
-
+    </div>
+}
 @section scripts {
     <script src="~/Scripts/ajax_helpers.js"></script>
     <script src="~/Scripts/massage_view.js"></script>
     <script src="~/Scripts/cart_events.js"></script>
-
 }

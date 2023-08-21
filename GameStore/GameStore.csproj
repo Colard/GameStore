@@ -144,12 +144,14 @@
     <Content Include="Content\adaptation.css" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\FiltrationModels\AddressJSONMassage.cs" />
     <Compile Include="Controllers\FiltrationModels\JSONMassage.cs" />
     <Compile Include="Controllers\FiltrationModels\ProductFilter.cs" />
     <Compile Include="Controllers\FiltrationModels\OrderTypes.cs" />
     <Compile Include="Controllers\Functions\Data\JSImageByteConverter.cs" />
     <Compile Include="Controllers\Functions\HtmlSettings\PaginationCustomOption.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
@@ -183,13 +185,24 @@
     <Compile Include="Migrations\202308181133451_v4.2.designer.cs">
       <DependentUpon>202308181133451_v4.2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308201418215_v4.cs" />
+    <Compile Include="Migrations\202308201418215_v4.designer.cs">
+      <DependentUpon>202308201418215_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308201425493_v4.3.cs" />
+    <Compile Include="Migrations\202308201425493_v4.3.designer.cs">
+      <DependentUpon>202308201425493_v4.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308201730358_v4.4.cs" />
+    <Compile Include="Migrations\202308201730358_v4.4.designer.cs">
+      <DependentUpon>202308201730358_v4.4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="DAL\GameStoreDBContext.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderProduct.cs" />
-    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
     <Compile Include="Models\Role.cs" />
@@ -200,6 +213,8 @@
     <Content Include="Scripts\ajax_helpers.js" />
     <Content Include="Scripts\cart_events.js" />
     <Content Include="Scripts\massage_view.js" />
+    <Content Include="Scripts\order_create_events.js" />
+    <Content Include="Scripts\dynamic_adress_create.js" />
     <Compile Include="Validation\AbstractNumberComparison.cs" />
     <Compile Include="Validation\NumberMax.cs" />
     <Compile Include="Validation\NumberMin.cs" />
@@ -323,6 +338,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308181133451_v4.2.resx">
       <DependentUpon>202308181133451_v4.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308201418215_v4.resx">
+      <DependentUpon>202308201418215_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308201425493_v4.3.resx">
+      <DependentUpon>202308201425493_v4.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308201730358_v4.4.resx">
+      <DependentUpon>202308201730358_v4.4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

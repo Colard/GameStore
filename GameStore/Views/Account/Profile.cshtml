@@ -1,8 +1,48 @@
-﻿
+﻿@model IEnumerable<GameStore.Models.Order>
+
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Profile</h2>
+<h2>Index</h2>
 
+
+<div class="accordion " id="orderAcrodion">
+
+    @{
+        int indexOfOrder = 1;
+        foreach (var item in Model)
+        {
+            double orderSum = Math.Round(item.OrderProducts.Sum(el => el.Product.Price * el.Count), 2);
+            string elementId = "collapse" + item.Id.ToString();
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button row m-0 collapsed" aria-expanded="false" type="button" data-bs-toggle="collapse" data-bs-target="#@elementId">
+                        <p class="col-md-4">Замовлення №@indexOfOrder.</p><p class="col-md-4">@orderSum грн.</p><p class="col-md-3">@item.Date.ToShortDateString()</p>
+                    </button>
+                </h2>
+                <div id="@elementId" class="accordion-collapse collapse" data-bs-parent="#orderAcrodion">
+                    <div class="accordion-body">
+                        <ul class="m-0 p-0">
+                            @{
+                                List<GameStore.Models.Cart> cartList = (List<GameStore.Models.Cart>)ViewBag.Carts;
+
+                                foreach (GameStore.Models.OrderProduct el in item.OrderProducts)
+                                {
+                                    double productSum = Math.Round(el.Product.Price * el.Count, 2);
+                                    <li class="row border-bottom my-3">
+                                        <a class="col-md-8 undecorited_link" href="/Shop/Buy/@el.ProductId">@el.Product.Name</a>
+                                        <p class="col-md-1 m-0">@el.Count шт.</p>
+                                        <p class="col-md-3 m-0">@productSum грн.</p>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            indexOfOrder++;
+        }
+    }
+</div>

@@ -19,6 +19,7 @@ namespace GameStore.Models
         [Display(Name = "Прізвище")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
         [Display(Name = "По батькові")]
         public string MiddleName { get; set; }
 

@@ -16,27 +16,23 @@ namespace GameStore.Models
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
-        [Display(Name = "Статус замовлення")]
-        public int OrderStatusId { get; set; }
+        [Display(Name = "Дані отримувача")]
+        public string FullName { get; set; }
+        
+        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Display(Name = "Номер телефону отримувача")]
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
 
         [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
+        [Display(Name = "Адреса отримувача")]
+        public string Address { get; set; }
+
         [Display(Name = "Дата замовлення")]
         public DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
-        [Display(Name = "Адреса замовника")]
-        public string Address { get; set; }
-
-        [Required(ErrorMessage = "Поле обов'язкове для заповнення!")]
-        [Display(Name = "Ціна за замовлення")]
-        [DataType(DataType.Currency)]
-        public int Price { get; set; }
-
         [ForeignKey("UserId")]
         public User User { get; set; }
-        
-        [ForeignKey("OrderStatusId")]
-        public OrderStatus OrderStatus { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
