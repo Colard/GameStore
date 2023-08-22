@@ -25,7 +25,7 @@ namespace GameStore.Controllers
         // GET: Shop
         public ActionResult Index(int? page, ProductFilter filter, int filtering = 0 )
         {
-            if (filtering == 1) {
+            if (filtering != 0) {
                 return RedirectToAction("Index", new {Sort = filter.Sort, category = filter.Category, name = filter.Name });
             }
 
@@ -41,11 +41,6 @@ namespace GameStore.Controllers
             {   
                 products = filter.FilterByCategory(products);
                 ViewBag.CoosedCategory = filter.Category;
-            }
-
-            if(filtering != 0)
-            {
-                page = 1;
             }
 
             //Full categories DropList

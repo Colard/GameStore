@@ -1,6 +1,8 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using GameStore.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -22,8 +24,9 @@ namespace GameStore.Authentication.Attributes
             if (CurrentUser == null) return false;
            
             if (String.IsNullOrWhiteSpace(Roles)) return true;
-
+            
             string[] rolesList = Roles.Replace(" ", "").Split(',');
+
             foreach (string role in rolesList)
             {
                 if (CurrentUser.IsInRole(Roles)) return true;
@@ -51,8 +54,7 @@ namespace GameStore.Authentication.Attributes
                 return;
             }
 
-            if (CurrentUser == null)
-            {
+            if(CurrentUser == null) { 
                 routeData = new RedirectToRouteResult
                     (new System.Web.Routing.RouteValueDictionary
                     (new
@@ -64,7 +66,18 @@ namespace GameStore.Authentication.Attributes
                     )) ;
                 filterContext.Result = routeData;
             }
-
+            else
+            {
+                routeData = new RedirectToRouteResult
+                    (new System.Web.Routing.RouteValueDictionary
+                    (new
+                    {
+                        controller = "Home",
+                        action = "Index",
+                    }
+                    )) ;
+                filterContext.Result = routeData;
+            }
         }
 
     }

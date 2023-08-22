@@ -7,17 +7,60 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using GameStore.Models;
 using GameStore.Controllers.Functions.Data;
+using GameStore.Authentication.Attributes;
+using GameStore.Controllers.FiltrationModels;
+using PagedList;
+using System.Data.Entity;
 
 namespace GameStore.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private GameStoreDBContext db = new GameStoreDBContext();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? page, ProductFilter filter, int filtering = 0)
         {
-            return View(db.Products.ToList());
+            if (filtering != 0)
+            {
+                return RedirectToAction("Index", "Products", new { Sort = filter.Sort, category = filter.Category, name = filter.Name });
+            }
+
+            var products = db.Products.Include(p => p.Category);
+
+            if (!String.IsNullOrEmpty(filter.Name))
+            {
+                products = filter.FilterProductByText(products);
+                ViewBag.NameSearch = filter.Name;
+            }
+
+            if (filter.Category != null && filter.Category != 0)
+            {
+                products = filter.FilterByCategory(products);
+                ViewBag.CoosedCategory = filter.Category;
+            }
+
+            //Full categories DropList
+            if (filter.Category == null)
+            {
+                ViewBag.CategoriesFilter = filter.CreateSelectedCategoryFilterList(db.Categories);
+            }
+            else
+            {
+                ViewBag.CategoriesFilter = ProductFilter.CreateCategoryFilterList(db.Categories);
+            }
+
+            //Full sorting DropList
+            if (filter.Sort != null && Enum.IsDefined(typeof(OrderTypes), filter.Sort))
+            {
+                products = filter.SortByFilter(products);
+                ViewBag.Sort = filter.Sort;
+            }
+            ViewBag.SortFilter = ProductFilter.CreateOrderSelectList();
+
+            int pageNumber = (page ?? 1);
+            return View(products.ToList().ToPagedList(pageNumber, 20));
         }
 
 

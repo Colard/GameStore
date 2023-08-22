@@ -9,14 +9,15 @@
 
 <h2 class="text-center py-5 display-3 fw-bold">Корзина</h2>
 
+@if (Model.Count() == 0)
+{
+    <h1 class="text-center py-5 display-3 fw-bold">Корзина пуста!</h1>
+}
+
 <section class="pb-3 ">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-left">
             @{
-                if (Model.Count() == 0)
-                {
-                    <h1>Корзина пуста</h1>
-                }
                 string off = "product-not-available";
                 foreach (GameStore.Models.Cart item in Model)
                 {

@@ -149,6 +149,10 @@
     <Compile Include="Migrations\202308211835453_v4.9.designer.cs">
       <DependentUpon>202308211835453_v4.9.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308220615286_v5.cs" />
+    <Compile Include="Migrations\202308220615286_v5.designer.cs">
+      <DependentUpon>202308220615286_v5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Validation\RangeLengthAttribute.cs" />
     <Content Include="Content\adaptation.css" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -229,7 +233,6 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAddress.cs" />
-    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Content\Img\back.jpg" />
     <Content Include="Scripts\page_scripts\ajax_helpers.js" />
@@ -303,7 +306,6 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Shop\Buy.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
-    <Content Include="Views\Cart\Create.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
@@ -384,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308211835453_v4.9.resx">
       <DependentUpon>202308211835453_v4.9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308220615286_v5.resx">
+      <DependentUpon>202308220615286_v5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

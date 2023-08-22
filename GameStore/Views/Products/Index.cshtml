@@ -1,29 +1,85 @@
-﻿@model IEnumerable<GameStore.Models.Product>
+﻿@model PagedList.IPagedList<GameStore.Models.Product>
+@using PagedList.Mvc;
+@using GameStore.Controllers.Functions.HtmlSettings;
 
 @{
     ViewBag.Title = "Продукція";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <h2 class="text-center py-5 display-3 fw-bold">Продукція</h2>
 <div class="row my-4">
     <a class="btn btn-dark p-3 return-url-text" href="/Products/Create">Додати продукт</a>
 </div>
 
+<div class="container my-3">
+    <div class="accordion" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="d-block text-center accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <h4 class="text-center">Налаштування пошуку</h4>
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <section class="py-3 black-border light-gray-background">
+                    @using (Html.BeginForm("Index", "Products"))
+                    {
+                        <div class="container">
+                            <div class="container-fluid wraped flex-column">
+                                <div class="wrapper row">
+                                    <div class="col-md-8 my-3 filter-right-border">
+                                        <h3 class="text-center">Фільтри:</h3>
+                                        <div class="wraped row justify-content-sm-center">
+                                            <div class="text-center col-md-6 flex-column">
+                                                <p class="fw-bold mb-0">За назвою:</p>
+                                                <div class="row px-5 pt-3">@Html.TextBox("Name", ViewBag.NameSearch as string, new { @class = "form-control" })</div>
+                                            </div>
+
+                                            <div class="text-center col-md-6 flex-column">
+                                                <p class="fw-bold mb-0">За категорією:</p>
+                                                <div class="row px-5 pt-3">@Html.DropDownList("Category", ViewBag.CategoriesFilter as IEnumerable<SelectListItem>, new { @class = "form-select" })</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 my-3">
+                                        <h3 class="text-center">Сортування:</h3>
+                                        <div class="wraped row justify-content-sm-center">
+                                            <div class="text-center flex-column justify-content-center col-12">
+                                                <p class="fw-bold mb-0"> Сортувати:</p>
+                                                <div class="row px-5 pt-3">@Html.DropDownList("Sort", ViewBag.SortFilter as IEnumerable<SelectListItem>, new { @class = "form-select" })</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wraped text-center row">
+                                    <input class="btn btn-dark mt-2" type="submit" value="Знайти" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" name="filtering" class="unvisible_checkbox" value="1" checked />
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Назва
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            Категорія
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            Ціна
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Count)
+            Кількість
         </th>
         <th></th>
     </tr>
@@ -44,10 +100,15 @@
                 @Html.DisplayFor(modelItem => item.Count)
             </td>
             <td>
-                @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }, new { @class = "btn btn-dark" }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id }, new { @class = "btn btn-dark" })
             </td>
         </tr>
     }
 
 </table>
+
+@Html.PagedListPager(Model,
+    page => Url.Action("Index",
+    new { page, name = ViewBag.NameSearch, category = ViewBag.CoosedCategory, Sort = ViewBag.Sort }),
+    PaginationCustomOption.ShowOnlySomePages(5, "Початок", "Кінець", "Попередня", "Наступна"))
