@@ -1,5 +1,6 @@
 (function () {
     $(document).ready(function () {
+        //add link to div-block
         $('[div-href]').click(function (e) {
             e.stopPropagation();
             let target = $(e.target);

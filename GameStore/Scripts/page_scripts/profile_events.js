@@ -1,4 +1,5 @@
 ﻿(function () {
+    //add address tag
     const addOption = function (id, address) {
         let select = $(".addresses-palce");
 
@@ -12,6 +13,7 @@
         $(select).append(addressAdder);
     }
 
+    //send delete address request
     const deteleAddress = function (id, JQview) {
         $.ajax({
             url: '/Account/DeleteAdress/',
@@ -26,6 +28,7 @@
         });
     }
 
+    //show delete confirm msg
     const deleteConfirm = function (jqelement, addressRow) {
         let id = jqelement.attr("delete");
         let name = addressRow.find(".address-name").text();
@@ -34,6 +37,7 @@
         confirmMsg(msg, () => deteleAddress(id, addressRow));
     }
 
+    //add events
     $(".addresses-palce").on("click", function (e) {
         let elemet = $(e.target);
         if (!elemet.attr("delete")) return;

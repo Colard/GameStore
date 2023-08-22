@@ -25,6 +25,7 @@ namespace GameStore.Controllers
         // GET: Shop
         public ActionResult Index(int? page, ProductFilter filter, int filtering = 0 )
         {
+            //set filter request params in url string
             if (filtering != 0) {
                 return RedirectToAction("Index", new {Sort = filter.Sort, category = filter.Category, name = filter.Name });
             }

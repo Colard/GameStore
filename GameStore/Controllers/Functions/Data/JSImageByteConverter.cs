@@ -8,11 +8,13 @@ namespace GameStore.Controllers.Functions.Data
 {
     public class JSImageByteConverter
     {
+        //prepare img to html view
         public static string FromBase64ToImageString(byte[] input)
         {
             return "data:image/jpeg;base64," + Convert.ToBase64String(input, 0, input.Length);
         }
 
+        //prepare img array to html view
         public static IEnumerable<string> ArrOfBase64ToImageString(IEnumerable<byte[]> input)
         {
             List<string> output = new List<string>();
@@ -24,6 +26,7 @@ namespace GameStore.Controllers.Functions.Data
             return output;
         }
 
+        //check img format
         public static bool CheckImgStringToBase64(string input, out byte[] output)
         {
             Regex exp = new Regex(@"^data:image/jpeg;base64,|^data:image/png;base64,");
@@ -37,6 +40,7 @@ namespace GameStore.Controllers.Functions.Data
             return false;
         }
 
+        //check img code format
         public static bool TryGetFromBase64String(string input, out byte[] output)
         {
             output = null;

@@ -1,3 +1,4 @@
+//redirect to login
 $(document).ajaxError(function (e, xhr) {
     if (xhr.status == 403) {
         var response = $.parseJSON(xhr.responseText);
@@ -5,6 +6,7 @@ $(document).ajaxError(function (e, xhr) {
     }
 });
 
+//check user
 const checkAccount = function (callback) {
     $.ajax({
         type: "GET",

@@ -21,6 +21,7 @@ const showMsg = function (msg) {
     $(".body-content").append(msgPanel);
 }
 
+//show confirm panel
 const confirmMsg = function (msg, callback) {
     let msgPanel = $([
         "<div class='d-flex justify-content-center align-items-center content-blocker'>",

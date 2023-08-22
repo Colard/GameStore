@@ -1,5 +1,7 @@
 (function () {
     "use strict"
+
+    //change text on pagination panel
     const paginationTextControll = function() {
         let skipToFirst = $(".PagedList-skipToFirst a"),
             skipToPrevious = $(".PagedList-skipToPrevious a"),

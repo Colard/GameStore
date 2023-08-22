@@ -2,6 +2,7 @@
 
     'use strict';
 
+    //set event settings
     const preventDefaults = event => {
         event.preventDefault();
         event.stopPropagation();
@@ -11,6 +12,7 @@
 
     const unhighlight = e => $(e.target).addClass('highlight');
 
+    //get all "drag and drop" elements
     const getInputAndGalleryRefs = element => {
         const zone = element.closest('.upload_dropZone') || false;
         const gallery = document.querySelector('.upload_gallery') || false;
@@ -24,6 +26,7 @@
         handleFiles(dataRefs);
     }
 
+    //event for choose main photo
     const chooseMainImage = e => {
         let currentElement = e.target;
         if (currentElement.tagName != "IMG") return;
@@ -40,6 +43,7 @@
         grandParent.find(".main_img_container").val(file);
     }
 
+    //add events to zone
     const eventHandlers = zone => {
 
         const dataRefs = getInputAndGalleryRefs(zone);
@@ -67,14 +71,16 @@
 
     }
 
+    //add event to drop zones
     const dropZones = document.querySelectorAll('.upload_dropZone');
     for (const zone of dropZones) {
         eventHandlers(zone);
     }
 
+    //check file format
     const isImageFile = file => ['image/jpeg', 'image/png'].includes(file.type);
 
-
+    //show img
     function previewFiles(dataRefs) {
         if (!dataRefs.gallery) return;
         for (const file of dataRefs.files) {

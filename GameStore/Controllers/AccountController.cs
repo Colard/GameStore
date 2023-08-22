@@ -22,12 +22,6 @@ namespace GameStore.Controllers
         GameStoreDBContext db = new GameStoreDBContext();
 
         [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
         [CustomAuthorize]
         public ActionResult Profile()
         {
@@ -46,6 +40,7 @@ namespace GameStore.Controllers
         }
 
         [CustomAuthorize]
+        //check authorize request 
         public string CheckAuthorize()
         {
             return "success";
@@ -53,6 +48,7 @@ namespace GameStore.Controllers
 
         [HttpPost]
         [CustomAuthorize]
+        //create address and return address info in JSON
         public JsonResult CreateAdress(UserAddress userAddress)
         {
             AddressJSONMassage  msg = new AddressJSONMassage();
@@ -81,6 +77,7 @@ namespace GameStore.Controllers
 
         [HttpPost]
         [CustomAuthorize]
+        //delete address and return address info in JSON
         public JsonResult DeleteAdress(int? id)
         {
             JSONMassage msg = new JSONMassage();
@@ -180,7 +177,6 @@ namespace GameStore.Controllers
             return RedirectToAction("Profile"); ;
         }
 
-
         [HttpGet]
         public ActionResult Login(string ReturnUrl = "")
         {
@@ -276,6 +272,7 @@ namespace GameStore.Controllers
             }
         }
 
+        //check user in db and set cookie
         private bool verifyUser(LoginView loginView)
         {
             if (Membership.ValidateUser(loginView.Login, loginView.Password))
@@ -286,6 +283,7 @@ namespace GameStore.Controllers
             return false;
         }
 
+        //set user cookie
         private void setUserCookie(LoginView loginView) {
             CustomMembershipUser user = (CustomMembershipUser)Membership.GetUser(loginView.Login, false);
             if (user != null)

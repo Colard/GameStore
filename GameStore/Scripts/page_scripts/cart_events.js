@@ -1,10 +1,11 @@
 ﻿(function () {
-
+    //change order price after remove product from cart
     const chagePrice = function (decrSum) {
         let span = $("#sumSpan");
         span.text((+(span.text().replace(",", ".")) - decrSum).toFixed(2));
     }
 
+    //delete product from cart
     const deteleFromCart = function (productId, JQview) {
         $.ajax({
             url: '/Cart/Delete/', 
@@ -20,6 +21,7 @@
         });
     }
 
+    //show delete confirm window
     const deleteConfirm = function(jqelement) {
         let productId = jqelement.attr("delete");
         let productView = jqelement.closest(".product-element");
@@ -29,6 +31,7 @@
         confirmMsg(msg, () => deteleFromCart(productId, productView));
     }
 
+    //set events
     $("[delete]").on("click", function () {
         let elemet = $(this);
         checkAccount(() => deleteConfirm(elemet));
